@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.vlunn.eventshuffle.business.model.HappeningBM;
 import com.vlunn.eventshuffle.business.model.mapper.HappeningPersistenceMapper;
+import com.vlunn.eventshuffle.exception.NotImplementedException;
 import com.vlunn.eventshuffle.persistence.service.HappeningPersistenceService;
 
 @Service
@@ -24,17 +25,18 @@ public class SchedulingServiceImpl implements SchedulingService {
     @Autowired
     private HappeningPersistenceMapper mapper;
 
-    private final static String NOT_IMPLEMENTED_MSG = 
-        "Called an endpoint that is not yet implemented. The endpoint was: ";
+    private final static String NOT_IMPLEMENTED_MSG = " is not yet implemented.";
 
     public Optional<HappeningBM> getHappening(final UUID id) {
         logger.debug("Fetching happening with id {}", id);
+
         return happeningPersistenceService.getHappening(id)
                 .map(h -> mapper.toBusinessModel(h));
     }
 
     public List<HappeningBM> getHappenings() {
         logger.debug("Fetching all happenings.");
+
         return happeningPersistenceService.getHappenings()
                 .stream()
                 .map(h -> mapper.toBusinessModel(h))
@@ -42,11 +44,11 @@ public class SchedulingServiceImpl implements SchedulingService {
     }
 
     public Optional<HappeningBM> createHappening(final HappeningBM happening) {
-        throw new UnsupportedOperationException(NOT_IMPLEMENTED_MSG + "createHappening");
+        throw new NotImplementedException("Creating events" + NOT_IMPLEMENTED_MSG);
     }
 
     public Optional<HappeningBM> updateHappening(final HappeningBM happening) {
-        throw new UnsupportedOperationException(NOT_IMPLEMENTED_MSG + "updateHappening");
+        throw new NotImplementedException("Updating events" + NOT_IMPLEMENTED_MSG);
     }
 
 }
