@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 import com.vlunn.eventshuffle.business.model.HappeningBM;
+import com.vlunn.eventshuffle.business.model.HappeningFullDetailsBM;
 
 /**
  * Service for scheduling happenings. 
@@ -13,7 +14,7 @@ public interface SchedulingService {
 
     Optional<HappeningBM> createHappening(final HappeningBM happening);
  
-    Optional<HappeningBM> getHappening(final UUID id);
+    Optional<HappeningFullDetailsBM> getHappening(final UUID id);
 
     /**
      * Fetch all existing happenings. 

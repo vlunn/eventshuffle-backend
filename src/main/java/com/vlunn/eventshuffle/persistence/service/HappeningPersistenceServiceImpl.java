@@ -9,7 +9,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.vlunn.eventshuffle.exception.NotImplementedException;
 import com.vlunn.eventshuffle.persistence.model.Happening;
 import com.vlunn.eventshuffle.persistence.repository.HappeningRepository;
 
@@ -21,14 +20,18 @@ public class HappeningPersistenceServiceImpl implements HappeningPersistenceServ
     @Autowired
     private HappeningRepository happeningRepository;
 
-    public Optional<Happening> getHappening(final UUID id) {
-        final String msg = "Searching for events is not yet implemented.";
-        throw new NotImplementedException(msg);
+    public Optional<Happening> getHappeningById(final UUID id) {
+        logger.debug("Searching for happening by id: {}.", id);
+        Optional<Happening> happening = happeningRepository.findById(id);
+        logger.info("Search result for happening with id: {} is: {}.", id, happening);
+        return happening;
     }
 
     public List<Happening> getHappenings() {
         logger.debug("Fetching all happenings from DB.");
-        return happeningRepository.findAll();
+        final List<Happening> happenings = happeningRepository.findAll();
+        logger.info("Found happenings: {}", happenings.toString());
+        return happenings;
     }
 
     public Optional<Happening> createHappening(final Happening toBeCreated) {

@@ -1,5 +1,6 @@
 package com.vlunn.eventshuffle.business.service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -10,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.vlunn.eventshuffle.business.model.HappeningBM;
+import com.vlunn.eventshuffle.business.model.HappeningFullDetailsBM;
+import com.vlunn.eventshuffle.business.model.VoteBM;
 import com.vlunn.eventshuffle.business.model.mapper.HappeningPersistenceMapper;
 import com.vlunn.eventshuffle.exception.NotImplementedException;
 import com.vlunn.eventshuffle.persistence.model.Happening;
@@ -28,11 +31,24 @@ public class SchedulingServiceImpl implements SchedulingService {
 
     private final static String NOT_IMPLEMENTED_MSG = " is not yet implemented.";
 
-    public Optional<HappeningBM> getHappening(final UUID id) {
+    public Optional<HappeningFullDetailsBM> getHappening(final UUID id) {
         logger.debug("Fetching happening with id {}", id);
 
-        return happeningPersistenceService.getHappening(id)
-                .map(h -> mapper.toBusinessModel(h));
+        HappeningBM happening = getHappeningById(id);
+        List<VoteBM> votes = Collections.emptyList(); // TODO: getHappeningVotesById(id); once implemented
+
+        return Optional.ofNullable(HappeningFullDetailsBM.builder()
+            .happeningId(happening.getId())
+            .happeningName(happening.getName())
+            .dates(happening.getDates())
+            .votes(votes)
+            .build());
+    }
+
+    private HappeningBM getHappeningById(final UUID id) {
+        return happeningPersistenceService.getHappeningById(id)
+                .map(h -> mapper.toBusinessModel(h))
+                .orElseThrow();
     }
 
     public List<HappeningBM> getHappenings() {

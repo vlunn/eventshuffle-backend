@@ -9,12 +9,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.vlunn.eventshuffle.api.model.HappeningGlimpseDTO;
+import com.vlunn.eventshuffle.api.model.HappeningFullDetailsDTO;
 import com.vlunn.eventshuffle.api.model.HappeningListDTO;
 import com.vlunn.eventshuffle.api.model.IdDTO;
 import com.vlunn.eventshuffle.api.model.OccurencesDTO;
@@ -63,6 +65,15 @@ public class HappeningController {
         final UUID createdId = (created.orElseThrow()).getId();
 
         return new IdDTO(createdId);
+    }
+
+    @GetMapping("{happeningId}")
+    public HappeningFullDetailsDTO getHappeningDetails(@PathVariable final UUID happeningId) {
+        logger.debug("Received API call: getHappeningDetails for happening with id: {}", happeningId);
+
+        return schedulingService.getHappening(happeningId)
+            .map(happening -> mapper.toDTO(happening))
+            .orElse(null);
     }
 
 }

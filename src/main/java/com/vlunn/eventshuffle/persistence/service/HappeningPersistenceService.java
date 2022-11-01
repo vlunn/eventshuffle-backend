@@ -11,7 +11,7 @@ import com.vlunn.eventshuffle.persistence.model.Happening;
  */
 public interface HappeningPersistenceService {
 
-    Optional<Happening> getHappening(final UUID id);
+    Optional<Happening> getHappeningById(final UUID id);
 
     List<Happening> getHappenings();
 
