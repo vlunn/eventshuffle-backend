@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.vlunn.eventshuffle.business.model.HappeningBM;
 import com.vlunn.eventshuffle.business.model.mapper.HappeningPersistenceMapper;
 import com.vlunn.eventshuffle.exception.NotImplementedException;
+import com.vlunn.eventshuffle.persistence.model.Happening;
 import com.vlunn.eventshuffle.persistence.service.HappeningPersistenceService;
 
 @Service
@@ -44,7 +45,12 @@ public class SchedulingServiceImpl implements SchedulingService {
     }
 
     public Optional<HappeningBM> createHappening(final HappeningBM happening) {
-        throw new NotImplementedException("Creating events" + NOT_IMPLEMENTED_MSG);
+        logger.debug("Creating a happening from {}", happening);
+
+        final Happening toBeCreated = mapper.toPersistenceModel(happening);
+
+        return happeningPersistenceService.createHappening(toBeCreated)
+            .map(h -> mapper.toBusinessModel(h));
     }
 
     public Optional<HappeningBM> updateHappening(final HappeningBM happening) {

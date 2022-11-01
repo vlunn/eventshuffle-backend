@@ -31,4 +31,11 @@ public class HappeningPersistenceServiceImpl implements HappeningPersistenceServ
         return happeningRepository.findAll();
     }
 
+    public Optional<Happening> createHappening(final Happening toBeCreated) {
+        logger.debug("Saving happening: {} in database.", toBeCreated);
+        final Optional<Happening> saved = Optional.of(happeningRepository.save(toBeCreated));
+        logger.info("Saved {} in DB.", saved);
+        return saved;
+    }
+
 }

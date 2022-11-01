@@ -15,4 +15,6 @@ public interface HappeningPersistenceService {
 
     List<Happening> getHappenings();
 
+    Optional<Happening> createHappening(final Happening toBeCreated);
+
 }

@@ -1,13 +1,16 @@
 package com.vlunn.eventshuffle.persistence.model;
 
+import java.util.Collections;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import lombok.Builder;
+import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.ToString;
 
 /**
  * A persistable entity that stores info about an happening 
@@ -16,12 +19,27 @@ import lombok.ToString;
 @Entity
 @Table(name = "happening")
 @EqualsAndHashCode(callSuper = true)
-@ToString
-@Builder
+@Data
 public class Happening extends ShuffleEntity {
 
     @Column(name = "name", nullable = false)
     @Getter
     private String name;
+
+    /**
+     * Date candidates for the happening.
+     */
+    @OneToMany
+    @Getter
+    private List<Occurence> occurences = Collections.emptyList();
+
+    public Happening() {
+        super();
+    }
+
+    public Happening(String name, List<Occurence> occurences) {
+        this.name = name;
+        this.occurences = occurences;
+    }
 
 }
