@@ -7,7 +7,7 @@ scheduling events with your friends!
 - Make sure you are connected to the internet
 - Prerequisites: Docker, e.g. version 20.10.12 and docker compose v2.12.0
 - Run backend with `docker compose up` in the repo root directory.
-- The app is now served in `localhost:8080`. Use you 
+- The app is now served in `localhost:8080`.
 
 ## Should you want to make edits and rebuild the software, then:
 - Make sure you are connected to the internet
