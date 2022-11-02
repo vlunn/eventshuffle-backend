@@ -27,6 +27,9 @@ illustrates data flow through the service. See figure 1.
 Implementation considers logging and handling Java-required boilerplate, 
 illustrates some exception handling and data formatting.
 
+![data-flow](https://user-images.githubusercontent.com/15941293/199424755-281d1563-47bb-4fda-a587-7b3656e144be.jpg)
+Figure 1: Data flow through the app.
+
 ## Implemented API
 Implementation as per defined in [Eventshuffle backend API](https://gist.github.com/VilluNikolaiV/44eae2829f7ece9c0d0657d502ed8c63).
 Implementation is partial and consists of endpoints:
